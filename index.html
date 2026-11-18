@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maranta — Студия гармонии и развития речи в Таллинне</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
     <style>
         :root {
             --sage: #5c8374;
@@ -24,14 +24,19 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.6; }
-        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+      .container { 
+    max-width: 1140px; 
+    margin: 0 auto; 
+    padding: 0 24px; /* <--- Добавьте или увеличьте этот отступ со всех сторон */
+}
 
         /* Navigation */
         header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.06); }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; flex-wrap: wrap; gap: 15px; padding: 10px 0; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--sage); text-decoration: none; letter-spacing: 1px; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; padding: 10px 0; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--sage); text-decoration: none; letter-spacing: 1px; z-index: 102; }
         .logo span { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
-        nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; align-items: center; }
+        
+        nav ul { display: flex; list-style: none; gap: 24px; align-items: center; }
         nav a { text-decoration: none; color: var(--text-dark); font-size: 14px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.2s; }
         nav a:hover, nav a.active { color: var(--sage); border-bottom-color: var(--sage); }
 
@@ -41,6 +46,73 @@
         .btn-lavender { background: var(--lavender); color: var(--white); }
         .btn-lavender:hover { background: #655773; transform: translateY(-2px); }
         .btn-outline { background: transparent; border: 1.5px solid var(--text-dark); color: var(--text-dark); }
+
+        /* Бургер-меню */
+        .burger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 102;
+            padding: 0;
+        }
+        .burger-btn span {
+            display: block;
+            width: 100%;
+            height: 2.5px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+        .burger-btn.active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+        .burger-btn.active span:nth-child(2) { opacity: 0; }
+        .burger-btn.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+        .mobile-only-btn { display: none; }
+
+        /* Затемнение фона при открытом мобильном меню */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(2px);
+            z-index: 99;
+        }
+        .menu-overlay.active { display: block; }
+
+      @media (max-width: 1024px) {
+    .nav-inner {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--white);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px 30px;
+                transition: right 0.35s ease-in-out;
+                z-index: 101;
+            }
+            nav.open { right: 0; }
+            nav ul { flex-direction: column; align-items: flex-start; gap: 18px; width: 100%; }
+            nav li { width: 100%; }
+            nav a { display: block; font-size: 16px; width: 100%; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
+        }
 
         /* Hero */
         .hero { padding: 80px 0; background: linear-gradient(135deg, var(--sage-light) 0%, var(--cream) 50%, var(--lavender-light) 100%); }
@@ -56,7 +128,7 @@
         .section-header h2 { font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 14px; }
 
         /* Two Doors / Directions */
-        .doors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
+        .doors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
         .door-card { background: var(--white); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; }
         .door-card.speech { border-top: 6px solid var(--sage); }
         .door-card.beauty { border-top: 6px solid var(--lavender); }
@@ -67,7 +139,7 @@
         .door-card p { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
 
         /* Pricing Section */
-        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; }
         .price-card { background: var(--white); border-radius: 24px; padding: 36px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; border-top: 5px solid var(--sage); }
         .price-card.lavender-border { border-top-color: var(--lavender); }
         .price-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed #e2e8f0; }
@@ -76,13 +148,13 @@
         .price-card.lavender-border .price-item span:last-child { color: var(--lavender); }
 
         /* Combo Steps */
-        .combo-box { background: var(--white); border-radius: 24px; padding: 48px; box-shadow: var(--shadow); border: 1px solid rgba(92,131,116,0.2); }
+        .combo-box { background: var(--white); border-radius: 24px; padding: 48px 32px; box-shadow: var(--shadow); border: 1px solid rgba(92,131,116,0.2); }
         .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; margin-top: 30px; }
         .step-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 600; color: rgba(92,131,116,0.3); line-height: 1; margin-bottom: 10px; }
         .step-item h4 { font-size: 17px; margin-bottom: 8px; }
         .step-item p { font-size: 14px; color: var(--text-muted); }
 
-        /* МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ (скрыто по умолчанию) */
+        /* МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ */
         #maranta-booking-modal {
             display: none;
             position: fixed;
@@ -135,19 +207,29 @@
 </head>
 <body>
 
+<div class="menu-overlay" id="menuOverlay"></div>
+
 <header>
     <div class="container nav-inner">
         <a href="index.html" class="logo">MARANTA <span>Студия в Таллинне</span></a>
-        <nav>
+        
+        <button class="burger-btn" id="burgerToggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="navMenu">
             <ul>
                 <li><a href="index.html" class="active">Главная и Комбо-визит</a></li>
                 <li><a href="logoped.html">Специалист по развитию речи</a></li>
                 <li><a href="beauty-psy.html">Массаж / косметолог / психолог</a></li>
                 <li><a href="#prices">Цены</a></li>
             </ul>
+            <button class="btn btn-primary mobile-only-btn" data-open-booking data-preset="combo">Записаться</button>
         </nav>
-        <!-- Кнопка вызова модального окна записи -->
-        <button class="btn btn-primary" data-open-booking data-preset="combo">Записаться</button>
+
+        <button class="btn btn-primary desktop-only-btn" data-open-booking data-preset="combo">Записаться</button>
     </div>
 </header>
 
@@ -195,7 +277,6 @@
     </div>
 </section>
 
-<!-- РАЗДЕЛ: ЦЕНЫ И ПРАЙС-ЛИСТ -->
 <section id="prices" style="background: var(--white);">
     <div class="container">
         <div class="section-header">
@@ -268,7 +349,7 @@
                     </div>
                 </div>
                 <div style="font-size: 13px; color: var(--text-muted); margin-top: 15px;">
-                    * Экономия времени и комфорт: пока ребенок занимается со специалистом, вы отдыхаете на процедуре.
+                    Экономия времени и комфорт: пока ребенок занимается со специалистом, вы отдыхаете на процедуре.
                 </div>
                 <button class="btn btn-primary" data-open-booking data-preset="combo" style="margin-top: 15px; width: 100%; background: #d98a6c;">Выбрать Комбо</button>
             </div>
@@ -292,7 +373,7 @@
                 <div class="step-item">
                     <div class="step-num">02</div>
                     <h4>Параллельное время</h4>
-                    <p>Никаких ожидания и поездок в разные концы города — всё происходит одновременно.</p>
+                    <p>Никаких ожиданий и поездок в разные концы города — всё происходит одновременно.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-num">03</div>
@@ -325,7 +406,6 @@
             
             <div class="form-group">
                 <label>Выберите дату (зеленым отмечены свободные дни):</label>
-                <!-- Наш кастомный календарь с цветами -->
                 <div id="custom-calendar" style="background: var(--cream); border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px;"></div>
                 <input type="hidden" id="modal-date">
             </div>
@@ -361,8 +441,36 @@
     </div>
 </footer>
 
-<!-- Скрипты подключения Supabase и логики модального окна -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./booking-modal.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const burgerBtn = document.getElementById('burgerToggle');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('menuOverlay');
+
+        function toggleMenu(forceClose = false) {
+            if (forceClose) {
+                burgerBtn.classList.remove('active');
+                navMenu.classList.remove('open');
+                overlay.classList.remove('active');
+            } else {
+                burgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('open');
+                overlay.classList.toggle('active');
+            }
+        }
+
+        if (burgerBtn && navMenu && overlay) {
+            burgerBtn.addEventListener('click', () => toggleMenu());
+            overlay.addEventListener('click', () => toggleMenu(true));
+
+            // Закрывать меню при клике на любую ссылку или кнопку записи внутри него
+            navMenu.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('click', () => toggleMenu(true));
+            });
+        }
+    });
+</script>
 </body>
 </html>

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Светлана Пилипенко — Психолог, массажист, косметолог | Студия Maranta</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
     <style>
         :root {
             --lavender: #7c6d8a;
@@ -21,19 +21,86 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.6; }
-        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
+        /* Navigation */
         header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.06); }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; flex-wrap: wrap; gap: 15px; padding: 10px 0; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--lavender); text-decoration: none; }
-        .logo span { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
-        nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; }
-        nav a { text-decoration: none; color: var(--text-dark); font-size: 14px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; padding: 12px 0; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: var(--lavender); text-decoration: none; z-index: 102; flex-shrink: 0; }
+        .logo span { display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
+        
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-dark); font-size: 13px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.2s; white-space: nowrap; }
         nav a:hover, nav a.active { color: var(--lavender); border-bottom-color: var(--lavender); }
 
         .btn { display: inline-block; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; cursor: pointer; border: none; text-align: center; }
         .btn-lavender { background: var(--lavender); color: var(--white); }
         .btn-lavender:hover { background: var(--lavender-dark); transform: translateY(-2px); }
+
+        /* Бургер-меню */
+        .burger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 102;
+            padding: 0;
+        }
+        .burger-btn span {
+            display: block;
+            width: 100%;
+            height: 2.5px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+        .burger-btn.active span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+        .burger-btn.active span:nth-child(2) { opacity: 0; }
+        .burger-btn.active span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+        .mobile-only-btn { display: none; }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(2px);
+            z-index: 99;
+        }
+        .menu-overlay.active { display: block; }
+
+       @media (max-width: 1024px) {
+    .nav-inner {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 320px;
+                height: 100vh;
+                background: var(--white);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 40px 30px;
+                transition: right 0.35s ease-in-out;
+                z-index: 101;
+            }
+            nav.open { right: 0; }
+            nav ul { flex-direction: column; align-items: flex-start; gap: 18px; width: 100%; }
+            nav li { width: 100%; }
+            nav a { display: block; font-size: 16px; width: 100%; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; white-space: normal; }
+        }
 
         /* Hero */
         .hero { padding: 80px 0; background: linear-gradient(135deg, var(--lavender-light) 0%, #ffffff 100%); }
@@ -47,7 +114,7 @@
         .section-lead { text-align: center; color: var(--text-muted); max-width: 650px; margin: 0 auto 45px; font-size: 15px; }
 
         /* Three Pillars */
-        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
         .pillar-card { background: var(--white); padding: 36px; border-radius: 24px; box-shadow: var(--shadow); border-top: 5px solid var(--lavender); }
         .pillar-num { font-family: 'Playfair Display', serif; font-size: 36px; color: rgba(124,109,138,0.25); margin-bottom: 10px; }
         .pillar-card h3 { font-size: 22px; margin-bottom: 12px; color: var(--lavender-dark); }
@@ -60,11 +127,11 @@
 
         /* Booking */
         .booking-box { background: var(--white); padding: 40px; border-radius: 24px; box-shadow: var(--shadow); max-width: 600px; margin: 0 auto; }
+        @media (max-width: 600px) { .booking-box { padding: 28px 20px; } }
         .form-group { margin-bottom: 16px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #dcdcdc; border-radius: 10px; font-family: inherit; }
 
-        /* Сетка слотов времени */
         #slots-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -77,17 +144,28 @@
 </head>
 <body>
 
+<div class="menu-overlay" id="menuOverlay"></div>
+
 <header>
     <div class="container nav-inner">
-        <a href="index.html" class="logo">MARANTA <span>Направление: Тело, красота и баланс</span></a>
-        <nav>
+        <a href="index.html" class="logo">MARANTA <span>Тело, красота и баланс</span></a>
+        
+        <button class="burger-btn" id="burgerToggle" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="navMenu">
             <ul>
                 <li><a href="index.html">Главная и Комбо-визит</a></li>
-                <li><a href="logoped.html">Специалист по развитию речи и дефектолог</a></li>
+                <li><a href="logoped.html">Специалист по развитию речи</a></li>
                 <li><a href="beauty-psy.html" class="active">Массаж, косметолог, психолог</a></li>
             </ul>
+            <a href="#booking" class="btn btn-lavender mobile-only-btn btn-open-booking">Записаться на сеанс</a>
         </nav>
-        <a href="#booking" class="btn btn-lavender btn-open-booking">Записаться на сеанс</a>
+
+        <a href="#booking" class="btn btn-lavender desktop-only-btn btn-open-booking">Записаться на сеанс</a>
     </div>
 </header>
 
@@ -176,19 +254,15 @@
                     </select>
                 </div>
 
-              
-<div class="form-group">
-    <label>Выберите дату (зеленым отмечены дни со свободными местами):</label>
-    <!-- Кастомный календарь с цветами -->
-    <div id="custom-calendar" style="background: var(--cream); border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px; margin-bottom: 8px;"></div>
-    
-    <!-- Текст с выбранной датой -->
-    <div id="selected-date-display" style="font-size: 13px; font-weight: 600; color: #5c8374; margin-top: 6px;">
-        📅 Выбранная дата: <span id="chosen-date-text" style="color: #2c3333; font-weight: 700;">не выбрана</span>
-    </div>
+                <div class="form-group">
+                    <label>Выберите дату (зеленым отмечены дни со свободными местами):</label>
+                    <div id="custom-calendar" style="background: var(--cream); border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px; margin-bottom: 8px;"></div>
+                    <div id="selected-date-display" style="font-size: 13px; font-weight: 600; color: #5c8374; margin-top: 6px;">
+                        📅 Выбранная дата: <span id="chosen-date-text" style="color: #2c3333; font-weight: 700;">не выбрана</span>
+                    </div>
+                    <input type="hidden" id="modal-date">
+                </div>
 
-    <input type="hidden" id="modal-date">
-</div>
                 <div class="form-group">
                     <label>Доступные слоты времени:</label>
                     <div id="slots-grid">
@@ -222,18 +296,44 @@
     </div>
 </footer>
 
-<!-- Подключаем Supabase и скрипт управления календарем -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./booking-modal.js"></script>
 <script>
-    // Плавный скролл для кнопок "Записаться" на этой странице
-    document.querySelectorAll('.btn-open-booking').forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector('#booking');
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
+    document.addEventListener('DOMContentLoaded', () => {
+        const burgerBtn = document.getElementById('burgerToggle');
+        const navMenu = document.getElementById('navMenu');
+        const overlay = document.getElementById('menuOverlay');
+
+        function toggleMenu(forceClose = false) {
+            if (forceClose) {
+                burgerBtn.classList.remove('active');
+                navMenu.classList.remove('open');
+                overlay.classList.remove('active');
+            } else {
+                burgerBtn.classList.toggle('active');
+                navMenu.classList.toggle('open');
+                overlay.classList.toggle('active');
             }
+        }
+
+        if (burgerBtn && navMenu && overlay) {
+            burgerBtn.addEventListener('click', () => toggleMenu());
+            overlay.addEventListener('click', () => toggleMenu(true));
+
+            navMenu.querySelectorAll('a, button').forEach(el => {
+                el.addEventListener('click', () => toggleMenu(true));
+            });
+        }
+
+        // Плавный скролл для кнопок "Записаться"
+        document.querySelectorAll('.btn-open-booking').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector('#booking');
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         });
     });
 </script>
