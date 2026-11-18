@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель — Студия Maranta</title>
+    <!-- Подключение CSS файла -->
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="admin-container" style="padding: 20px; max-width: 900px; margin: 0 auto;">
+
+  <div class="admin-card-pro">
+    <div class="card-header">
+      <h3>📅 Управление расписанием и блокировками</h3>
+      <p class="subtitle">Закрывайте дни, месяцы или точечные часы для кабинетов в пару кликов</p>
+    </div>
+
+    <!-- Главные вкладки действий: Блокировка или Настройка времени -->
+<!-- Главные вкладки действий: Блокировка или Открытие -->
+<div class="action-mode-tabs" style="display: flex; gap: 10px; margin-bottom: 20px;">
+  <button type="button" class="action-tab-btn active" data-action="block" style="flex:1; padding: 12px; border-radius: 8px; border: none; background: #fee2e2; color: #991b1b; font-weight: 600; cursor: pointer;">🔒 Блокировка дней</button>
+  <button type="button" class="action-tab-btn" data-action="open" style="flex:1; padding: 12px; border-radius: 8px; border: none; background: #f1f5f9; color: #64748b; font-weight: 600; cursor: pointer;">🟢 Открыть / Задать время</button>
+</div>
+
+<!-- Блок добавления времени (виден только во вкладке "open") -->
+<div id="open-time-panel" style="display: none; background: #f8fafc; padding: 16px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #cbd5e0;">
+  <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Добавить точечный слот времени</label>
+  <div style="display: flex; gap: 10px;">
+    <input type="time" id="single-slot-input" class="pro-input" style="flex:1; padding:8px; border-radius:8px; border:1px solid #cbd5e0;" />
+    <button type="button" id="add-slot-btn" style="background:#065f46; color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">+ Добавить в список</button>
+  </div>
+  
+  <!-- Таблица со списком добавленных на этот день слотов (для просмотра и удаления) -->
+  <div style="margin-top: 12px;">
+    <strong style="font-size:12px; color:#4a5568;">Доступные слоты на выбранный день:</strong>
+    <table style="width:100%; margin-top:6px; font-size:13px;">
+      <tbody id="admin-custom-slots-body">
+        <tr><td style="color:#718096; padding:6px;">Выберите дату в календаре...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+      <div class="control-group">
+        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px;">Кабинет</label>
+       <select id="block-room" class="...">
+  <option value="combo">✨ Оба кабинета сразу (Комбо)</option>
+  <option value="speech">🗣️ Специалист по развитию речи и дефектолог</option>
+  <option value="massage">💆 Массаж</option>
+  <option value="cosmetology">✨ Косметология</option>
+  <option value="psychology">🧠 Психология</option>
+</select>
+      </div>
+    </div>
+
+    <!-- Основная сетка: слева поля ввода, справа мини-календарь -->
+    <div class="main-block-grid" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0;">
+      <div class="inputs-side" style="display: flex; flex-direction: column; gap: 16px; justify-content: space-between;">
+        
+        <!-- Блок выбора дат -->
+        <div class="input-group" id="date-container">
+          <label id="date-label" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Дата</label>
+          <div class="date-inputs-wrapper" style="display: flex; align-items: center; gap: 8px;">
+            <span class="input-prefix" id="label-c" style="display: none; background:#edf2f7; padding:9px; border-radius:8px; font-weight:600;">С</span>
+            <input type="date" id="block-date-start" class="pro-input" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
+            <span id="date-separator" style="display: none;">по</span>
+            <input type="date" id="block-date-end" class="pro-input" style="display: none; width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
+          </div>
+        </div>
+
+        <!-- Поле времени -->
+        <div class="input-group">
+          <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Время (для точечных часов)</label>
+          <div class="time-inputs-wrapper" style="display: flex; align-items: center; gap: 8px;">
+            <input type="time" id="block-time-start" class="pro-input" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
+            <span class="time-dash">до</span>
+            <input type="time" id="block-time-end" class="pro-input" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
+          </div>
+        </div>
+
+        <!-- Причина -->
+        <div class="input-group">
+          <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Причина / Комментарий</label>
+          <input type="text" id="block-reason" class="pro-input" placeholder="Например: Отпуск, Праздники" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
+        </div>
+      </div>
+
+      <!-- Визуальный мини-календарь (автоматический генератор) -->
+      <div class="calendar-preview-card" style="background:#fff; border-radius:12px; padding:14px; border:1px solid #e2e8f0;">
+        <div class="cal-header" style="display:flex; justify-content:space-between; align-items:center; font-weight:600; margin-bottom:8px;">
+          <button type="button" id="prev-month-btn" style="background:none; border:none; cursor:pointer; font-size:16px;">〈</button>
+          <strong id="cal-month-title">Ноябрь 2026</strong>
+          <button type="button" id="next-month-btn" style="background:none; border:none; cursor:pointer; font-size:16px;">〉</button>
+        </div>
+        <div class="cal-weekdays" style="display:grid; grid-template-columns:repeat(7, 1fr); text-align:center; font-size:11px; font-weight:600; color:#a0aec0; margin-bottom:6px;">
+          <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+        </div>
+        <!-- Динамическая сетка календаря -->
+        <div class="cal-grid" id="dynamic-cal-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:2px; text-align:center; font-size:12px;"></div>
+        
+        <button type="button" id="quick-close-btn" class="btn-quick-close" style="width:100%; margin-top:12px; padding:8px; background:#edf2f7; border:1px solid #cbd5e0; border-radius:8px; font-weight:600; cursor:pointer;">🔒 Выбрать этот день</button>
+      </div>
+    </div>
+
+    <!-- Большая кнопка отправки -->
+    <button id="add-block-btn" class="btn-pro-primary" style="margin-top: 20px; width: 100%; background: #1e293b; color: white; border: none; padding: 14px; font-size: 15px; font-weight: 600; border-radius: 12px; cursor: pointer;">🔒 Применить блокировку</button>
+  </div>
+
+  <!-- Таблица записей -->
+  <div class="card" style="margin-top: 30px; background:#fff; padding:20px; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.05);">
+    <h3>Активные записи клиентов</h3>
+    <table style="width:100%; border-collapse: collapse; margin-top: 15px;">
+        <thead>
+            <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
+                <th style="padding:10px;">Дата и время</th>
+                <th style="padding:10px;">Формат / Кабинет</th>
+                <th style="padding:10px;">Клиент</th>
+                <th style="padding:10px;">Телефон</th>
+                <th style="padding:10px;">Действия</th>
+            </tr>
+        </thead>
+        <tbody id="bookings-table-body"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./admin.js"></script>
+</body>
+</html>

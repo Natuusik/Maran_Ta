@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Светлана Пилипенко — Психолог, массажист, косметолог | Студия Maranta</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lavender: #7c6d8a;
+            --lavender-dark: #5e506b;
+            --lavender-light: #f4f1f7;
+            --cream: #faf8fb;
+            --text-dark: #2c3333;
+            --text-muted: #5a6262;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(74, 65, 84, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.6; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; flex-wrap: wrap; gap: 15px; padding: 10px 0; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--lavender); text-decoration: none; }
+        .logo span { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
+        nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; }
+        nav a { text-decoration: none; color: var(--text-dark); font-size: 14px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.2s; }
+        nav a:hover, nav a.active { color: var(--lavender); border-bottom-color: var(--lavender); }
+
+        .btn { display: inline-block; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; cursor: pointer; border: none; text-align: center; }
+        .btn-lavender { background: var(--lavender); color: var(--white); }
+        .btn-lavender:hover { background: var(--lavender-dark); transform: translateY(-2px); }
+
+        /* Hero */
+        .hero { padding: 80px 0; background: linear-gradient(135deg, var(--lavender-light) 0%, #ffffff 100%); }
+        .badge { display: inline-block; background: var(--white); color: var(--lavender); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+        .hero h1 { font-size: clamp(32px, 4vw, 46px); margin-bottom: 10px; }
+        .hero-sub { font-size: 16px; font-weight: 600; color: var(--lavender); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 24px; }
+        .quote-hero { background: var(--white); padding: 28px 32px; border-radius: 20px; border-left: 5px solid var(--lavender); box-shadow: var(--shadow); max-width: 760px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; color: #3d3545; margin-bottom: 30px; line-height: 1.5; }
+
+        section { padding: 70px 0; }
+        .section-title { font-size: 30px; margin-bottom: 14px; text-align: center; }
+        .section-lead { text-align: center; color: var(--text-muted); max-width: 650px; margin: 0 auto 45px; font-size: 15px; }
+
+        /* Three Pillars */
+        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+        .pillar-card { background: var(--white); padding: 36px; border-radius: 24px; box-shadow: var(--shadow); border-top: 5px solid var(--lavender); }
+        .pillar-num { font-family: 'Playfair Display', serif; font-size: 36px; color: rgba(124,109,138,0.25); margin-bottom: 10px; }
+        .pillar-card h3 { font-size: 22px; margin-bottom: 12px; color: var(--lavender-dark); }
+        .pillar-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
+        .pillar-card ul { font-size: 14px; padding-left: 18px; color: var(--text-dark); }
+        .pillar-card li { margin-bottom: 8px; }
+
+        /* Combo Banner */
+        .combo-banner { background: var(--lavender-light); border: 1.5px dashed var(--lavender); border-radius: 24px; padding: 36px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+
+        /* Booking */
+        .booking-box { background: var(--white); padding: 40px; border-radius: 24px; box-shadow: var(--shadow); max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #dcdcdc; border-radius: 10px; font-family: inherit; }
+
+        /* Сетка слотов времени */
+        #slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        footer { text-align: center; padding: 30px 0 50px; font-size: 13px; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-inner">
+        <a href="index.html" class="logo">MARANTA <span>Направление: Тело, красота и баланс</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная и Комбо-визит</a></li>
+                <li><a href="logoped.html">Специалист по развитию речи и дефектолог</a></li>
+                <li><a href="beauty-psy.html" class="active">Массаж, косметолог, психолог</a></li>
+            </ul>
+        </nav>
+        <a href="#booking" class="btn btn-lavender btn-open-booking">Записаться на сеанс</a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <span class="badge">Пространство бережной заботы</span>
+        <h1>Светлана Пилипенко</h1>
+        <div class="hero-sub">Психолог • Массажист • Косметолог</div>
+        <div class="quote-hero">
+            «Многолетний опыт научил меня важному: душевное равновесие, внешняя и внутренняя красота, а также здоровье тела — это три опоры, на которых держится полноценная и счастливая жизнь».
+        </div>
+        <a href="#booking" class="btn btn-lavender btn-open-booking">Записаться к Светлане</a>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="section-title">Три опоры вашего здоровья и гармонии</h2>
+        <p class="section-lead">Вы можете выбрать одну конкретную процедуру или сочетать направления для комплексного восстановления сил.</p>
+
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-num">01</div>
+                <h3>Здоровье тела и массаж</h3>
+                <p>Работа с мышечными зажимами, последствиями стресса и сидячего образа жизни.</p>
+                <ul>
+                    <li>Расслабляющий и антистресс-массаж</li>
+                    <li>Оздоровительный массаж спины и шейно-воротниковой зоны</li>
+                    <li>Восстановление легкости и тонуса тела</li>
+                </ul>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-num">02</div>
+                <h3>Эстетическая косметология</h3>
+                <p>Профессиональный и деликатный уход, направленный на сохранение молодости и естественного сияния кожи.</p>
+                <ul>
+                    <li>Индивидуальные уходовые программы по типу кожи</li>
+                    <li>Очищение, увлажнение и питание</li>
+                    <li>Массаж лица и лифтинг-методики</li>
+                </ul>
+            </div>
+
+            <div class="pillar-card">
+                <div class="pillar-num">03</div>
+                <h3>Психологическая поддержка</h3>
+                <p>Безопасное пространство, где можно выговориться, найти внутреннюю опору и восстановить душевный баланс.</p>
+                <ul>
+                    <li>Работа с эмоциональным выгоранием и усталостью</li>
+                    <li>Снижение тревожности и стресса</li>
+                    <li>Поддержка в периоды жизненных перемен</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="combo-banner">
+            <div style="max-width: 680px;">
+                <h3 style="margin-bottom: 8px; color: var(--lavender-dark);">Приходите вместе с ребенком!</h3>
+                <p style="font-size: 14px; color: var(--text-muted);">
+                    Не с кем оставить ребенка на время массажа или косметолога? В соседнем кабинете студии Maranta работает дипломированный специалист по развитию речи Татьяна Ефимова — вы можете записаться на одно и то же время.
+                </p>
+            </div>
+            <a href="index.html" class="btn btn-lavender">Подробнее о комбо-визите</a>
+        </div>
+    </div>
+</section>
+
+<section id="booking">
+    <div class="container">
+        <div class="booking-box">
+            <h2 style="text-align: center; margin-bottom: 10px;">Запись к Светлане Пилипенко</h2>
+            <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">Выберите интересующую услугу, дату в календаре и свободное время.</p>
+            
+            <form id="booking-submit-form">
+                <div class="form-group">
+                    <label>Направление</label>
+                    <select id="modal-type">
+                        <option value="combo">Комбо-визит (с ребенком / соседние кабинеты)</option>
+                        <option value="massage">Массаж</option>
+                        <option value="cosmetology">Косметология</option>
+                        <option value="psychology">Психология</option>
+                    </select>
+                </div>
+
+              
+<div class="form-group">
+    <label>Выберите дату (зеленым отмечены дни со свободными местами):</label>
+    <!-- Кастомный календарь с цветами -->
+    <div id="custom-calendar" style="background: var(--cream); border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px; margin-bottom: 8px;"></div>
+    
+    <!-- Текст с выбранной датой -->
+    <div id="selected-date-display" style="font-size: 13px; font-weight: 600; color: #5c8374; margin-top: 6px;">
+        📅 Выбранная дата: <span id="chosen-date-text" style="color: #2c3333; font-weight: 700;">не выбрана</span>
+    </div>
+
+    <input type="hidden" id="modal-date">
+</div>
+                <div class="form-group">
+                    <label>Доступные слоты времени:</label>
+                    <div id="slots-grid">
+                        <span style="font-size: 13px; color: var(--text-muted); grid-column: span 3;">Сначала выберите дату в календаре выше</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Ваше имя</label>
+                    <input type="text" id="client-name" placeholder="Мария" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон / WhatsApp / Telegram</label>
+                    <input type="tel" id="client-phone" placeholder="+372 ..." required>
+                </div>
+                <div class="form-group">
+                    <label>Email (для подтверждения)</label>
+                    <input type="email" id="client-email" placeholder="client@example.com">
+                </div>
+
+                <button type="submit" id="submit-booking" class="btn btn-lavender" style="width: 100%; margin-top: 10px;">Подтвердить запись</button>
+            </form>
+            <div id="msg-b" style="display:none; margin-top: 15px; text-align: center; color: green; font-weight: 600;">Заявка успешно отправлена!</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Студия Maranta в Таллинне. Все права защищены.</p>
+    </div>
+</footer>
+
+<!-- Подключаем Supabase и скрипт управления календарем -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./booking-modal.js"></script>
+<script>
+    // Плавный скролл для кнопок "Записаться" на этой странице
+    document.querySelectorAll('.btn-open-booking').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector('#booking');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

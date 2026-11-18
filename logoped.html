@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Татьяна Ефимова — Специалист по развитию речи-дефектолог в Таллинне | Студия Maranta</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sage: #5c8374;
+            --sage-dark: #436357;
+            --sage-light: #eef4f1;
+            --mint-bg: #f6faf8;
+            --text-dark: #2c3333;
+            --text-muted: #5a6262;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(44, 51, 51, 0.06);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--mint-bg); color: var(--text-dark); line-height: 1.6; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+        header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; flex-wrap: wrap; gap: 15px; padding: 10px 0; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--sage); text-decoration: none; }
+        .logo span { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
+        nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; }
+        nav a { text-decoration: none; color: var(--text-dark); font-size: 14px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.2s; }
+        nav a:hover, nav a.active { color: var(--sage); border-bottom-color: var(--sage); }
+
+        .btn { display: inline-block; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; cursor: pointer; border: none; text-align: center; }
+        .btn-primary { background: var(--sage); color: var(--white); }
+        .btn-primary:hover { background: var(--sage-dark); transform: translateY(-2px); }
+
+        /* Hero */
+        .hero { padding: 70px 0; background: linear-gradient(180deg, var(--sage-light) 0%, var(--mint-bg) 100%); }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+        @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; } }
+        .badge { display: inline-block; background: var(--white); color: var(--sage); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; }
+        .hero h1 { font-size: clamp(30px, 4vw, 44px); margin-bottom: 18px; line-height: 1.2; }
+        .hero p { font-size: 16px; color: var(--text-muted); margin-bottom: 24px; }
+        .about-card { background: var(--white); padding: 30px; border-radius: 24px; box-shadow: var(--shadow); border-left: 5px solid var(--sage); }
+
+        section { padding: 70px 0; }
+        .section-title { font-size: 30px; margin-bottom: 35px; text-align: center; }
+
+        /* Services */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .service-card { background: var(--white); padding: 28px; border-radius: 20px; box-shadow: var(--shadow); }
+        .service-card h3 { font-size: 18px; color: var(--sage); margin-bottom: 10px; }
+        .service-card p { font-size: 14px; color: var(--text-muted); }
+
+        /* Education Grid */
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .edu-card { background: var(--white); padding: 30px; border-radius: 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+        .edu-num { position: absolute; right: 20px; top: 15px; font-size: 48px; font-weight: 700; color: rgba(92,131,116,0.08); }
+        .edu-card h4 { font-size: 18px; margin-bottom: 8px; }
+        .edu-year { font-size: 13px; font-weight: 700; color: var(--sage); margin-bottom: 8px; }
+        .edu-desc { font-size: 14px; color: var(--text-muted); }
+
+        /* Booking Section */
+        .booking-section { background: var(--white); }
+        .booking-box { background: var(--sage); color: var(--white); border-radius: 28px; padding: 50px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        @media (max-width: 768px) { .booking-box { grid-template-columns: 1fr; } }
+        .booking-form { background: var(--white); padding: 30px; border-radius: 20px; color: var(--text-dark); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #dcdcdc; border-radius: 10px; font-family: inherit; }
+
+        /* Сетка слотов времени */
+        #slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        footer { text-align: center; padding: 30px 0 50px; font-size: 13px; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-inner">
+        <a href="index.html" class="logo">MARANTA <span>Направление: Развитие речи</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная и Комбо-визит</a></li>
+                <li><a href="logoped.html" class="active">Специалист по развитию речи</a></li>
+                <li><a href="beauty-psy.html">Массаж, косметолог, психолог</a></li>
+            </ul>
+        </nav>
+        <a href="#booking" class="btn btn-primary btn-open-booking">Записаться к специалисту</a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <span class="badge">Давайте знакомиться</span>
+            <h1>Раскрываю уверенность через правильную речь</h1>
+            <p>
+                Приветствую! Меня зовут <strong>Татьяна Владимировна Ефимова</strong>. Я квалифицированный специалист с профильным педагогическим, логопедическим и дефектологическим образованием.
+            </p>
+            <p>
+                Специализируюсь на диагностике и коррекции речевых нарушений, развитии речи у детей дошкольного и младшего школьного возраста, а также у взрослых — в том числе в условиях <strong>билингвизма (двуязычия)</strong>.
+            </p>
+            <a href="#booking" class="btn btn-primary btn-open-booking">Записаться на диагностику</a>
+        </div>
+        <div class="about-card">
+            <h3 style="color: var(--sage); margin-bottom: 12px;">Индивидуальный подход</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 14px;">
+                На занятиях использую игровые логопедические технологии, наглядные материалы и методики адаптации программы под возраст и особенности каждого ребенка.
+            </p>
+            <p style="font-size: 14px; font-weight: 600;">Форматы работы:</p>
+            <ul style="font-size: 14px; color: var(--text-muted); padding-left: 18px; margin-top: 6px;">
+                <li>Очные занятия в студии Maranta (Таллинн)</li>
+                <li>Онлайн-занятия по всему миру</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <h2 class="section-title">Направления логопедической работы</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Логопедическая диагностика</h3>
+                <p>Комплексная оценка звукопроизношения, словарного запаса, грамматического строя речи и составление индивидуального плана занятий.</p>
+            </div>
+            <div class="service-card">
+                <h3>Коррекция и постановка звуков</h3>
+                <p>Постановка, автоматизация и введение в свободную речь сложных звуков в увлекательной игровой форме без стресса для ребенка.</p>
+            </div>
+            <div class="service-card">
+                <h3>Поддержка детей-билингвов</h3>
+                <p>Специализированная помощь детям, растущим в двуязычной среде: гармоничное развитие речи, предупреждение смешения языков.</p>
+            </div>
+            <div class="service-card">
+                <h3>Занятия со взрослыми</h3>
+                <p>Коррекция дикции и звукопроизношения для взрослых, желающих говорить четко, красиво и уверенно.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="background: var(--white);">
+    <div class="container">
+        <h2 class="section-title">Образование и квалификация</h2>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <div class="edu-num">01</div>
+                <h4>Таллиннский университет (TLÜ)</h4>
+                <div class="edu-year">2025 – 2027 гг. (в процессе обучения)</div>
+                <div class="edu-desc">Магистратура: Учитель русского языка как иностранного (РКИ)</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-num">02</div>
+                <h4>Социально-гуманитарный институт</h4>
+                <div class="edu-year">2009 г. (Таллинн)</div>
+                <div class="edu-desc">Высшее педагогическое / гуманитарное образование</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-num">03</div>
+                <h4>Тартуский университет (Tartu Ülikool)</h4>
+                <div class="edu-year">2025 г.</div>
+                <div class="edu-desc">Курсы повышения квалификации: Дошкольная педагогика</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-num">04</div>
+                <h4>Псковский государственный университет</h4>
+                <div class="edu-year">Профессиональная подготовка</div>
+                <div class="edu-desc">Специальное дефектологическое образование</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция формы бронирования с кастомным календарем -->
+<section id="booking" class="booking-section">
+    <div class="container">
+        <div class="booking-box">
+            <div>
+                <span style="text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--white); margin-bottom: 10px; display: block;">Онлайн-запись</span>
+                <h2 style="margin-bottom: 15px; font-size: clamp(26px, 3.5vw, 36px);">Запишитесь к Татьяне Владимировне</h2>
+                <p>Выберите удобный день в календаре и свободное время. Мы ждем вас в студии Maranta!</p>
+            </div>
+            <div class="booking-form">
+                <form id="booking-submit-form">
+                    <div class="form-group">
+                        <label>Выберите направление:</label>
+                        <select id="modal-type">
+                            <option value="speech">Логопед-дефектолог (Татьяна)</option>
+                            <option value="combo">Комбо (Соседние кабинеты)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+    <label>Выберите дату (зеленым отмечены дни со свободными местами):</label>
+    <!-- Кастомный календарь с цветами -->
+    <div id="custom-calendar" style="background: var(--cream); border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px; margin-bottom: 8px;"></div>
+    
+    <!-- Текст с выбранной датой -->
+    <div id="selected-date-display" style="font-size: 13px; font-weight: 600; color: #5c8374; margin-top: 6px;">
+        📅 Выбранная дата: <span id="chosen-date-text" style="color: #2c3333; font-weight: 700;">не выбрана</span>
+    </div>
+
+    <input type="hidden" id="modal-date">
+</div>
+                    <div class="form-group">
+                        <label>Доступные слоты времени:</label>
+                        <div id="slots-grid">
+                            <span style="font-size: 13px; color: #777; grid-column: span 3;">Сначала выберите дату в календаре выше</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Ваше имя:</label>
+                        <input type="text" id="client-name" placeholder="Анна" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон:</label>
+                        <input type="tel" id="client-phone" placeholder="+372 ..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email (для подтверждения):</label>
+                        <input type="email" id="client-email" placeholder="client@example.com">
+                    </div>
+                    <button type="submit" id="submit-booking" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Забронировать визит</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Студия Maranta в Таллинне. Все права защищены.</p>
+    </div>
+</footer>
+
+<!-- Подключение логики базы данных и нашего календаря -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./booking-modal.js"></script>
+<script>
+    // Плавный скролл для кнопок "Записаться" на этой странице
+    document.querySelectorAll('.btn-open-booking').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector('#booking');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+</body>
+</html>

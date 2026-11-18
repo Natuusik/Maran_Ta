@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Студия Maranta — Запись на услуги</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9f6;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c4a3e;
+        }
+        p {
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .main-btn {
+            background-color: #4a6b5d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .main-btn:hover {
+            background-color: #3b554a;
+        }
+
+        /* Стиль модального окна */
+        #maranta-booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 420px;
+            max-width: 90%;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        #slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .slot-btn {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .slot-btn.free {
+            border-color: #4a6b5d;
+            color: #4a6b5d;
+        }
+        .slot-btn.free:hover, .slot-btn.selected {
+            background: #4a6b5d;
+            color: white;
+        }
+        .slot-btn.busy {
+            background: #eee;
+            color: #aaa;
+            border-color: #ddd;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .submit-btn {
+            width: 100%;
+            background: #4a6b5d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background: #3b554a;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Студия Maranta</h1>
+    <p>Выберите удобное время для визита в наши кабинеты в Таллинне</p>
+    
+    <!-- Кнопка, по которой открывается календарь -->
+    <button class="main-btn" data-open-booking data-preset="combo">Записаться на услугу</button>
+
+    <!-- Модальное окно записи -->
+    <div id="maranta-booking-modal">
+        <div class="modal-content">
+            <span id="close-booking-modal" class="close-btn">×</span>
+            <h2 style="margin-top:0; color:#2c4a3e;">Запись в студию</h2>
+            
+            <form id="booking-submit-form">
+                <div class="form-group">
+                    <label for="modal-type">Выберите направление:</label>
+                    <select id="modal-type">
+                        <option value="combo">Комбо (Соседние кабинеты)</option>
+                        <option value="speech">Специалист по развитию речи-дефектолог</option>
+                        <option value="massage">Массаж</option>
+                        <option value="cosmetology">Косметология</option>
+                        <option value="psychology">Психология</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Выберите дату:</label>
+                    <!-- Наш кастомный интерактивный календарь с подсветкой дней -->
+                    <div id="custom-calendar" style="background: #faf8f5; border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px;"></div>
+                    <!-- Скрытый инпут для хранения выбранной даты -->
+                    <input type="hidden" id="modal-date">
+                </div>
+
+                <div class="form-group">
+                    <label>Доступные слоты времени:</label>
+                    <div id="slots-grid">
+                        <!-- Сюда скрипт динамически загрузит кнопки времени -->
+                        <span style="font-size: 13px; color: #777; grid-column: span 3;">Сначала выберите дату в календаре выше</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-name">Ваше имя:</label>
+                    <input type="text" id="client-name" placeholder="Анна" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-phone">Телефон:</label>
+                    <input type="tel" id="client-phone" placeholder="+372 ..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="client-email">Email (для подтверждения):</label>
+                    <input type="email" id="client-email" placeholder="client@example.com" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Подтвердить запись</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Подключаем Supabase через CDN и скрипт модального окна -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./booking-modal.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maranta — Студия гармонии и развития речи в Таллинне</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sage: #5c8374;
+            --sage-light: #eef4f1;
+            --lavender: #7c6d8a;
+            --lavender-light: #f4f1f7;
+            --cream: #faf8f5;
+            --text-dark: #2c3333;
+            --text-muted: #5a6262;
+            --white: #ffffff;
+            --accent: #d98a6c;
+            --radius: 18px;
+            --shadow: 0 10px 30px rgba(44, 51, 51, 0.06);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--text-dark); line-height: 1.6; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+        /* Navigation */
+        header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; min-height: 78px; flex-wrap: wrap; gap: 15px; padding: 10px 0; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--sage); text-decoration: none; letter-spacing: 1px; }
+        .logo span { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
+        nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-dark); font-size: 14px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: 0.2s; }
+        nav a:hover, nav a.active { color: var(--sage); border-bottom-color: var(--sage); }
+
+        .btn { display: inline-block; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; cursor: pointer; border: none; text-align: center; }
+        .btn-primary { background: var(--sage); color: var(--white); }
+        .btn-primary:hover { background: #48695c; transform: translateY(-2px); }
+        .btn-lavender { background: var(--lavender); color: var(--white); }
+        .btn-lavender:hover { background: #655773; transform: translateY(-2px); }
+        .btn-outline { background: transparent; border: 1.5px solid var(--text-dark); color: var(--text-dark); }
+
+        /* Hero */
+        .hero { padding: 80px 0; background: linear-gradient(135deg, var(--sage-light) 0%, var(--cream) 50%, var(--lavender-light) 100%); }
+        .hero-badge { display: inline-block; background: var(--white); color: var(--lavender); padding: 6px 16px; border-radius: 30px; font-size: 13px; font-weight: 600; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .hero h1 { font-size: clamp(32px, 4.5vw, 50px); max-width: 820px; margin-bottom: 20px; line-height: 1.2; }
+        .hero h1 em { font-family: 'Playfair Display', serif; color: var(--sage); font-style: italic; }
+        .hero p.lead { font-size: 18px; color: var(--text-muted); max-width: 680px; margin-bottom: 34px; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+        section { padding: 80px 0; }
+        .section-header { text-align: center; max-width: 720px; margin: 0 auto 50px; }
+        .section-subtitle { text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--sage); margin-bottom: 10px; display: block; }
+        .section-header h2 { font-size: clamp(26px, 3.5vw, 36px); margin-bottom: 14px; }
+
+        /* Two Doors / Directions */
+        .doors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
+        .door-card { background: var(--white); border-radius: 24px; padding: 40px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; }
+        .door-card.speech { border-top: 6px solid var(--sage); }
+        .door-card.beauty { border-top: 6px solid var(--lavender); }
+        .door-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; padding: 5px 12px; border-radius: 8px; display: inline-block; margin-bottom: 16px; }
+        .speech .door-tag { background: var(--sage-light); color: var(--sage); }
+        .beauty .door-tag { background: var(--lavender-light); color: var(--lavender); }
+        .door-card h3 { font-size: 24px; margin-bottom: 12px; }
+        .door-card p { font-size: 15px; color: var(--text-muted); margin-bottom: 24px; }
+
+        /* Pricing Section */
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .price-card { background: var(--white); border-radius: 24px; padding: 36px; box-shadow: var(--shadow); display: flex; flex-direction: column; justify-content: space-between; border-top: 5px solid var(--sage); }
+        .price-card.lavender-border { border-top-color: var(--lavender); }
+        .price-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed #e2e8f0; }
+        .price-item span:first-child { font-weight: 500; font-size: 14px; padding-right: 10px; }
+        .price-item span:last-child { font-weight: 700; color: var(--sage); font-size: 15px; white-space: nowrap; }
+        .price-card.lavender-border .price-item span:last-child { color: var(--lavender); }
+
+        /* Combo Steps */
+        .combo-box { background: var(--white); border-radius: 24px; padding: 48px; box-shadow: var(--shadow); border: 1px solid rgba(92,131,116,0.2); }
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; margin-top: 30px; }
+        .step-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 600; color: rgba(92,131,116,0.3); line-height: 1; margin-bottom: 10px; }
+        .step-item h4 { font-size: 17px; margin-bottom: 8px; }
+        .step-item p { font-size: 14px; color: var(--text-muted); }
+
+        /* МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ (скрыто по умолчанию) */
+        #maranta-booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 24px;
+            width: 480px;
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 26px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+        .close-btn:hover { color: var(--text-dark); }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text-dark); }
+        .form-group select, .form-group input { width: 100%; padding: 12px; border: 1px solid #dcdcdc; border-radius: 10px; font-family: inherit; font-size: 14px; }
+        
+        #slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        footer { text-align: center; padding: 30px 0 50px; font-size: 13px; color: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-inner">
+        <a href="index.html" class="logo">MARANTA <span>Студия в Таллинне</span></a>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Главная и Комбо-визит</a></li>
+                <li><a href="logoped.html">Специалист по развитию речи</a></li>
+                <li><a href="beauty-psy.html">Массаж / косметолог / психолог</a></li>
+                <li><a href="#prices">Цены</a></li>
+            </ul>
+        </nav>
+        <!-- Кнопка вызова модального окна записи -->
+        <button class="btn btn-primary" data-open-booking data-preset="combo">Записаться</button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <span class="hero-badge">Два кабинета рядом • Единое пространство заботы</span>
+        <h1>Пока вы на массаже — с ребенком занимается <em>Специалист по развитию речи</em> за соседней дверью</h1>
+        <p class="lead">
+            В студии <strong>Maranta</strong> мы объединили два важных направления в одном месте. Вы можете записаться на параллельный комбо-визит для всей семьи или выбрать любого специалиста отдельно.
+        </p>
+        <div class="hero-actions">
+            <button class="btn btn-primary" data-open-booking data-preset="combo">Записаться на комбо-визит</button>
+            <a href="#directions" class="btn btn-outline">Выбрать направление отдельно</a>
+        </div>
+    </div>
+</section>
+
+<section id="directions">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-subtitle">Два самостоятельных направления</span>
+            <h2>Выберите нужный раздел студии</h2>
+            <p style="color: var(--text-muted);">Каждое направление работает автономно — вы можете перейти на страницу интересующего специалиста.</p>
+        </div>
+
+        <div class="doors-grid">
+            <div class="door-card speech">
+                <div>
+                    <span class="door-tag">Кабинет 1 • Развитие речи</span>
+                    <h3>Специалист по развитию речи и дефектолог</h3>
+                    <p><strong>Татьяна Владимировна Ефимова.</strong> Диагностика и коррекция речи, запуск речи, постановка звуков, работа с детьми-билингвами и взрослыми (очно и онлайн).</p>
+                </div>
+                <a href="logoped.html" class="btn btn-primary">Перейти на страницу специалиста →</a>
+            </div>
+
+            <div class="door-card beauty">
+                <div>
+                    <span class="door-tag">Кабинет 2 • Тело, красота и баланс</span>
+                    <h3>Массаж, косметология и психология</h3>
+                    <p><strong>Светлана Пилипенко.</strong> Восстановление ресурса, снятие мышечных зажимов, уходовые процедуры за кожей лица и бережная психологическая поддержка.</p>
+                </div>
+                <a href="beauty-psy.html" class="btn btn-lavender">Перейти на страницу Светланы →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- РАЗДЕЛ: ЦЕНЫ И ПРАЙС-ЛИСТ -->
+<section id="prices" style="background: var(--white);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-subtitle">Стоимость услуг</span>
+            <h2>Цены и направления студии Maranta</h2>
+            <p style="color: var(--text-muted);">Прозрачные условия без скрытых доплат. Выбирайте отдельную процедуру или выгодный комбо-формат.</p>
+        </div>
+
+        <div class="price-grid">
+            <div class="price-card">
+                <div>
+                    <h3 style="margin-bottom: 20px; color: var(--sage); font-size: 20px;">Кабинет развития речи</h3>
+                    <div class="price-item">
+                        <span>Первичная диагностика (45 мин)</span>
+                        <span>45 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Индивидуальное занятие (45 мин)</span>
+                        <span>45 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Пакет занятий (10 раз)</span>
+                        <span>320 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Онлайн-консультация</span>
+                        <span>35 €</span>
+                    </div>
+                </div>
+                <button class="btn btn-primary" data-open-booking data-preset="speech" style="margin-top: 24px; width: 100%;">Записаться к Татьяне</button>
+            </div>
+
+            <div class="price-card lavender-border">
+                <div>
+                    <h3 style="margin-bottom: 20px; color: var(--lavender); font-size: 20px;">Тело и эстетика</h3>
+                    <div class="price-item">
+                        <span>Массаж спины и ШВЗ (45 мин)</span>
+                        <span>40 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Общий расслабляющий массаж (60 мин)</span>
+                        <span>55 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Уходовая процедура для лица</span>
+                        <span>50 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Психологическая сессия (60 мин)</span>
+                        <span>50 €</span>
+                    </div>
+                </div>
+                <button class="btn btn-lavender" data-open-booking data-preset="massage" style="margin-top: 24px; width: 100%;">Записаться к Светлане</button>
+            </div>
+
+            <div class="price-card" style="border-top-color: #d98a6c;">
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #d98a6c; font-size: 20px;">Комбо-визит (Соседи)</h3>
+                    <div class="price-item">
+                        <span>Логопед + Массаж (параллельно)</span>
+                        <span>80 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Диагностика речи + Уход для лица</span>
+                        <span>90 €</span>
+                    </div>
+                    <div class="price-item">
+                        <span>Семейный пакет (по запросу)</span>
+                        <span>—</span>
+                    </div>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted); margin-top: 15px;">
+                    * Экономия времени и комфорт: пока ребенок занимается со специалистом, вы отдыхаете на процедуре.
+                </div>
+                <button class="btn btn-primary" data-open-booking data-preset="combo" style="margin-top: 15px; width: 100%; background: #d98a6c;">Выбрать Комбо</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="combo-box">
+            <div class="section-header" style="margin-bottom: 20px;">
+                <span class="section-subtitle">Изюминка студии Maranta</span>
+                <h2>Как устроен визит «Соседние кабинеты»</h2>
+            </div>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-num">01</div>
+                    <h4>Одна запись на двоих</h4>
+                    <p>Вы выбираете удобный час, а мы синхронизируем расписание обоих кабинетов.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">02</div>
+                    <h4>Параллельное время</h4>
+                    <p>Никаких ожидания и поездок в разные концы города — всё происходит одновременно.</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-num">03</div>
+                    <h4>Комфорт для всех</h4>
+                    <p>Уютная зона ожидания, чай, заботливая атмосфера и профессиональные мастера.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ВСПЛЫВАЮЩЕЕ МОДАЛЬНОЕ ОКНО БРОНИРОВАНИЯ -->
+<div id="maranta-booking-modal">
+    <div class="modal-content">
+        <span id="close-booking-modal" class="close-btn">×</span>
+        <h2 style="margin-bottom: 6px; color: var(--sage);">Онлайн-запись</h2>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Выберите направление, свободный день и время визита.</p>
+        
+        <form id="booking-submit-form">
+            <div class="form-group">
+                <label>Выберите направление:</label>
+                <select id="modal-type">
+                    <option value="combo">Комбо (Соседние кабинеты)</option>
+                    <option value="speech">Специалист по развитию речи</option>
+                    <option value="massage">Массаж</option>
+                    <option value="cosmetology">Косметология</option>
+                    <option value="psychology">Психология</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Выберите дату (зеленым отмечены свободные дни):</label>
+                <!-- Наш кастомный календарь с цветами -->
+                <div id="custom-calendar" style="background: var(--cream); border: 1px solid #dcdcdc; border-radius: 12px; padding: 12px;"></div>
+                <input type="hidden" id="modal-date">
+            </div>
+
+            <div class="form-group">
+                <label>Доступные слоты времени:</label>
+                <div id="slots-grid">
+                    <span style="font-size: 13px; color: var(--text-muted); grid-column: span 3;">Сначала выберите дату в календаре выше</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Ваше имя:</label>
+                <input type="text" id="client-name" placeholder="Анна" required>
+            </div>
+            <div class="form-group">
+                <label>Телефон:</label>
+                <input type="tel" id="client-phone" placeholder="+372 ..." required>
+            </div>
+            <div class="form-group">
+                <label>Email (для подтверждения):</label>
+                <input type="email" id="client-email" placeholder="client@example.com">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Забронировать визит</button>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>© 2026 Студия Maranta в Таллинне. Все права защищены.</p>
+    </div>
+</footer>
+
+<!-- Скрипты подключения Supabase и логики модального окна -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./booking-modal.js"></script>
+</body>
+</html>
