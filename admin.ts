@@ -9,33 +9,14 @@ let mainAction = 'block';
 let displayedYear = new Date().getFullYear();
 let displayedMonth = new Date().getMonth();
 
-async function checkUserSession() {
-  const { data: { session } } = await db.auth.getSession();
-  if (session) {
-    document.getElementById('login-screen')?.style.setProperty('display', 'none');
-    document.getElementById('admin-dashboard')?.style.setProperty('display', 'block');
-    loadAdminData();
-    renderDynamicCalendar();
-  }
-}
-checkUserSession();
-
-document.getElementById('login-btn')?.addEventListener('click', async () => {
-  const email = (document.getElementById('admin-email') as HTMLInputElement).value;
-  const password = (document.getElementById('admin-pass') as HTMLInputElement).value;
-  const { error } = await db.auth.signInWithPassword({ email, password });
-  
-  if (error) {
-    alert('Ошибка входа: ' + error.message);
-  } else {
-    document.getElementById('login-screen')?.style.setProperty('display', 'none');
-    document.getElementById('admin-dashboard')?.style.setProperty('display', 'block');
-    loadAdminData();
-    renderDynamicCalendar();
-  }
+// Запускаем отрисовку сразу при загрузке страницы, независимо от сессии
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Инициализация админ-панели...');
+  renderDynamicCalendar();
+  loadAdminData();
 });
 
-// Кнопки переключения месяцев (если они есть в HTML, например #prev-month и #next-month)
+// Кнопки переключения месяцев
 document.getElementById('prev-month')?.addEventListener('click', () => {
   displayedMonth--;
   if (displayedMonth < 0) {
@@ -127,7 +108,7 @@ document.getElementById('add-block-btn')?.addEventListener('click', async () => 
 // Кнопка добавления точечного слота
 document.getElementById('add-slot-btn')?.addEventListener('click', async () => {
   const timeInput = document.getElementById('single-slot-input') as HTMLInputElement;
-  const roomSelect = document.querySelector('.admin-dashboard select, select#block-room, select') as HTMLSelectElement;
+  const roomSelect = document.getElementById('block-room') as HTMLSelectElement;
   
   if (!startInput?.value) {
     alert('Сначала выберите дату в календаре!');
@@ -142,19 +123,19 @@ document.getElementById('add-slot-btn')?.addEventListener('click', async () => {
   let rooms: string[] = [];
   let reasonText = 'Открыто администратором';
 
-  if (roomChoice === 'combo' || roomChoice === 'all' || roomChoice.includes('Комбо')) {
+  if (roomChoice === 'combo') {
     rooms = ['speech', 'beauty'];
     reasonText = 'Комбо слот';
-  } else if (roomChoice === 'speech' || roomChoice.includes('Специалист по развитию речи')) {
+  } else if (roomChoice === 'speech') {
     rooms = ['speech'];
     reasonText = 'Коррекция речи';
-  } else if (roomChoice === 'massage' || roomChoice.includes('Массаж')) {
+  } else if (roomChoice === 'massage') {
     rooms = ['massage'];
     reasonText = 'Массаж';
-  } else if (roomChoice === 'cosmetology' || roomChoice.includes('Косметология')) {
+  } else if (roomChoice === 'cosmetology') {
     rooms = ['cosmetology'];
     reasonText = 'Косметология';
-  } else if (roomChoice === 'psychology' || roomChoice.includes('Психология')) {
+  } else if (roomChoice === 'psychology') {
     rooms = ['psychology'];
     reasonText = 'Психология';
   } else {
