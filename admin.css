@@ -285,3 +285,28 @@
   pointer-events: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+#dynamic-cal-grid span {
+    padding: 6px 0;
+    cursor: pointer;
+    border-radius: 6px;
+    display: inline-block;
+}
+#dynamic-cal-grid span:hover {
+    background: #e2e8f0;
+}
+#dynamic-cal-grid span.muted {
+    color: #cbd5e1;
+}
+#dynamic-cal-grid span.selected-start {
+    background: #5c8374 !important;
+    color: white !important;
+    font-weight: bold;
+}
+#dynamic-cal-grid span.day-blocked {
+    background: #fee2e2;
+    color: #991b1b;
+}
+#dynamic-cal-grid span.day-available {
+    background: #d1fae5;
+    color: #065f46;
+}

@@ -15,41 +15,40 @@
       <p class="subtitle">Закрывайте дни, месяцы или точечные часы для кабинетов в пару кликов</p>
     </div>
 
-    <!-- Главные вкладки действий: Блокировка или Настройка времени -->
-<!-- Главные вкладки действий: Блокировка или Открытие -->
-<div class="action-mode-tabs" style="display: flex; gap: 10px; margin-bottom: 20px;">
-  <button type="button" class="action-tab-btn active" data-action="block" style="flex:1; padding: 12px; border-radius: 8px; border: none; background: #fee2e2; color: #991b1b; font-weight: 600; cursor: pointer;">🔒 Блокировка дней</button>
-  <button type="button" class="action-tab-btn" data-action="open" style="flex:1; padding: 12px; border-radius: 8px; border: none; background: #f1f5f9; color: #64748b; font-weight: 600; cursor: pointer;">🟢 Открыть / Задать время</button>
-</div>
+    <!-- Главные вкладки действий: Блокировка или Открытие -->
+    <div class="action-mode-tabs" style="display: flex; gap: 10px; margin-bottom: 20px;">
+      <button type="button" class="action-tab-btn active" data-action="block" style="flex:1; padding: 12px; border-radius: 8px; border: none; background: #fee2e2; color: #991b1b; font-weight: 600; cursor: pointer;">🔒 Блокировка дней</button>
+      <button type="button" class="action-tab-btn" data-action="open" style="flex:1; padding: 12px; border-radius: 8px; border: none; background: #f1f5f9; color: #64748b; font-weight: 600; cursor: pointer;">🟢 Открыть / Задать время</button>
+    </div>
 
-<!-- Блок добавления времени (виден только во вкладке "open") -->
-<div id="open-time-panel" style="display: none; background: #f8fafc; padding: 16px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #cbd5e0;">
-  <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Добавить точечный слот времени</label>
-  <div style="display: flex; gap: 10px;">
-    <input type="time" id="single-slot-input" class="pro-input" style="flex:1; padding:8px; border-radius:8px; border:1px solid #cbd5e0;" />
-    <button type="button" id="add-slot-btn" style="background:#065f46; color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">+ Добавить в список</button>
-  </div>
-  
-  <!-- Таблица со списком добавленных на этот день слотов (для просмотра и удаления) -->
-  <div style="margin-top: 12px;">
-    <strong style="font-size:12px; color:#4a5568;">Доступные слоты на выбранный день:</strong>
-    <table style="width:100%; margin-top:6px; font-size:13px;">
-      <tbody id="admin-custom-slots-body">
-        <tr><td style="color:#718096; padding:6px;">Выберите дату в календаре...</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-      <div class="control-group">
-        <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px;">Кабинет</label>
-       <select id="block-room" class="...">
-  <option value="combo">✨ Оба кабинета сразу (Комбо)</option>
-  <option value="speech">🗣️ Специалист по развитию речи и дефектолог</option>
-  <option value="massage">💆 Массаж</option>
-  <option value="cosmetology">✨ Косметология</option>
-  <option value="psychology">🧠 Психология</option>
-</select>
+    <!-- Блок добавления времени (виден только во вкладке "open") -->
+    <div id="open-time-panel" style="display: none; background: #f8fafc; padding: 16px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #cbd5e0;">
+      <label style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Добавить точечный слот времени</label>
+      <div style="display: flex; gap: 10px;">
+        <input type="time" id="single-slot-input" class="pro-input" style="flex:1; padding:8px; border-radius:8px; border:1px solid #cbd5e0;" />
+        <button type="button" id="add-slot-btn" style="background:#065f46; color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">+ Добавить в список</button>
       </div>
+      
+      <!-- Таблица со списком добавленных на этот день слотов -->
+      <div style="margin-top: 12px;">
+        <strong style="font-size:12px; color:#4a5568;">Доступные слоты на выбранный день:</strong>
+        <table style="width:100%; margin-top:6px; font-size:13px;">
+          <tbody id="admin-custom-slots-body">
+            <tr><td style="color:#718096; padding:6px;">Выберите дату в календаре...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="control-group" style="margin-bottom: 20px;">
+      <label style="display:block; font-size:13px; font-weight:600; margin-bottom:8px;">Кабинет</label>
+      <select id="block-room" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0; font-size:14px;">
+        <option value="combo">✨ Оба кабинета сразу (Комбо)</option>
+        <option value="speech">🗣️ Специалист по развитию речи и дефектолог</option>
+        <option value="massage">💆 Массаж</option>
+        <option value="cosmetology">✨ Косметология</option>
+        <option value="psychology">🧠 Психология</option>
+      </select>
     </div>
 
     <!-- Основная сетка: слева поля ввода, справа мини-календарь -->
@@ -60,10 +59,7 @@
         <div class="input-group" id="date-container">
           <label id="date-label" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px;">Дата</label>
           <div class="date-inputs-wrapper" style="display: flex; align-items: center; gap: 8px;">
-            <span class="input-prefix" id="label-c" style="display: none; background:#edf2f7; padding:9px; border-radius:8px; font-weight:600;">С</span>
             <input type="date" id="block-date-start" class="pro-input" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
-            <span id="date-separator" style="display: none;">по</span>
-            <input type="date" id="block-date-end" class="pro-input" style="display: none; width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e0;" />
           </div>
         </div>
 
@@ -84,20 +80,19 @@
         </div>
       </div>
 
-      <!-- Визуальный мини-календарь (автоматический генератор) -->
+      <!-- Визуальный мини-календарь -->
       <div class="calendar-preview-card" style="background:#fff; border-radius:12px; padding:14px; border:1px solid #e2e8f0;">
         <div class="cal-header" style="display:flex; justify-content:space-between; align-items:center; font-weight:600; margin-bottom:8px;">
-          <button type="button" id="prev-month-btn" style="background:none; border:none; cursor:pointer; font-size:16px;">〈</button>
+          <!-- Исправлены ID кнопок на prev-month и next-month -->
+          <button type="button" id="prev-month" style="background:none; border:none; cursor:pointer; font-size:16px;">〈</button>
           <strong id="cal-month-title">Ноябрь 2026</strong>
-          <button type="button" id="next-month-btn" style="background:none; border:none; cursor:pointer; font-size:16px;">〉</button>
+          <button type="button" id="next-month" style="background:none; border:none; cursor:pointer; font-size:16px;">〉</button>
         </div>
         <div class="cal-weekdays" style="display:grid; grid-template-columns:repeat(7, 1fr); text-align:center; font-size:11px; font-weight:600; color:#a0aec0; margin-bottom:6px;">
           <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
         </div>
         <!-- Динамическая сетка календаря -->
-        <div class="cal-grid" id="dynamic-cal-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:2px; text-align:center; font-size:12px;"></div>
-        
-        <button type="button" id="quick-close-btn" class="btn-quick-close" style="width:100%; margin-top:12px; padding:8px; background:#edf2f7; border:1px solid #cbd5e0; border-radius:8px; font-weight:600; cursor:pointer;">🔒 Выбрать этот день</button>
+        <div class="cal-grid" id="dynamic-cal-grid" style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; text-align:center; font-size:12px;"></div>
       </div>
     </div>
 
