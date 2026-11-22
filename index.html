@@ -472,5 +472,71 @@
         }
     });
 </script>
+<!-- СЕКРЕТНОЕ ОКНО АДМИН-ПАНЕЛИ (Вход по паролю) -->
+<div id="secret-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 2000; padding: 20px;">
+    <div style="background: var(--white); padding: 35px; border-radius: 24px; width: 380px; max-width: 100%; text-align: center; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+        <span id="close-secret-modal" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--text-muted);">×</span>
+        <h3 style="margin-bottom: 10px; color: var(--sage);">Вход для администратора</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Введите секретный пароль доступа:</p>
+        
+        <form id="secret-admin-form">
+            <div class="form-group" style="margin-bottom: 15px; text-align: left;">
+                <input type="password" id="secret-admin-password" placeholder="Пароль..." required style="width: 100%; padding: 12px; border: 1px solid #dcdcdc; border-radius: 10px; font-size: 14px;">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
+        </form>
+    </div>
+</div>
+
+<!-- СКРИПТ СЕКРЕТНОГО НАЖАТИЯ -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const secretModal = document.getElementById('secret-admin-modal');
+        const closeSecretBtn = document.getElementById('close-secret-modal');
+        const secretForm = document.getElementById('secret-admin-form');
+        const passwordInput = document.getElementById('secret-admin-password');
+
+        // Секретная комбинация: Ctrl + Alt + A (можно изменить под себя)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.altKey && e.code === 'KeyA') {
+                e.preventDefault(); // Предотвращаем стандартное поведение браузера
+                secretModal.style.display = 'flex';
+                passwordInput.focus();
+            }
+        });
+
+        // Закрытие модального окна крестиком
+        if (closeSecretBtn) {
+            closeSecretBtn.addEventListener('click', () => {
+                secretModal.style.display = 'none';
+                passwordInput.value = '';
+            });
+        }
+
+        // Закрытие при клике на фон вокруг окна
+        secretModal.addEventListener('click', (e) => {
+            if (e.target === secretModal) {
+                secretModal.style.display = 'none';
+                passwordInput.value = '';
+            }
+        });
+
+        // Проверка пароля (укажите свой пароль вместо 'maranta2026')
+        secretForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const enteredPassword = passwordInput.value;
+            
+            // Сюда впишите ваш желаемый пароль
+            if (enteredPassword === 'maranta2026') {
+                // Если пароль верный — перенаправляем на файл админ-панели (например, admin.html)
+                // Или можете открыть нужный блок на этой странице
+                window.location.href = 'admin.html'; 
+            } else {
+                alert('Неверный пароль!');
+                passwordInput.value = '';
+            }
+        });
+    });
+</script>
 </body>
 </html>
