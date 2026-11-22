@@ -1,7 +1,6 @@
 "use strict";
 // @ts-nocheck
 const db = window.supabase.createClient('https://gqtqpjqnraozoumohzpk.supabase.co', 'sb_publishable_ReWzF60tqezy7KnsdPdQmA_6HK0gW2I');
-let currentMode = 'single';
 let mainAction = 'block';
 let displayedYear = new Date().getFullYear();
 let displayedMonth = new Date().getMonth();
@@ -28,6 +27,23 @@ document.getElementById('login-btn')?.addEventListener('click', async () => {
         loadAdminData();
         renderDynamicCalendar();
     }
+});
+// Кнопки переключения месяцев (если они есть в HTML, например #prev-month и #next-month)
+document.getElementById('prev-month')?.addEventListener('click', () => {
+    displayedMonth--;
+    if (displayedMonth < 0) {
+        displayedMonth = 11;
+        displayedYear--;
+    }
+    renderDynamicCalendar();
+});
+document.getElementById('next-month')?.addEventListener('click', () => {
+    displayedMonth++;
+    if (displayedMonth > 11) {
+        displayedMonth = 0;
+        displayedYear++;
+    }
+    renderDynamicCalendar();
 });
 // Переключение вкладок действий (Блокировка дней / Открыть)
 document.querySelectorAll('.action-tab-btn').forEach(tab => {
@@ -70,7 +86,6 @@ document.getElementById('add-block-btn')?.addEventListener('click', async () => 
         return;
     }
     if (mainAction === 'block') {
-        // Удаляем старые записи для этой даты и сохраняем полную блокировку (start_time = null)
         await db.from('blocked_dates').delete().eq('block_date', startInput.value);
         const { error } = await db.from('blocked_dates').insert([
             { block_date: startInput.value, room: 'beauty', start_time: null, end_time: null, reason: 'Заблокировано полностью' },
@@ -86,7 +101,6 @@ document.getElementById('add-block-btn')?.addEventListener('click', async () => 
         }
     }
     else {
-        // В режиме открытия — полностью удаляем все блокировки на выбранный день
         const { error } = await db.from('blocked_dates').delete().eq('block_date', startInput.value);
         if (error) {
             alert('Ошибка снятия блокировки: ' + error.message);
@@ -117,7 +131,7 @@ document.getElementById('add-slot-btn')?.addEventListener('click', async () => {
         rooms = ['speech', 'beauty'];
         reasonText = 'Комбо слот';
     }
-    else if (roomChoice === 'speech' || roomChoice.includes('Специалист по развитию речи и дефектолог')) {
+    else if (roomChoice === 'speech' || roomChoice.includes('Специалист по развитию речи')) {
         rooms = ['speech'];
         reasonText = 'Коррекция речи';
     }
@@ -137,7 +151,6 @@ document.getElementById('add-slot-btn')?.addEventListener('click', async () => {
         rooms = ['beauty'];
         reasonText = 'Услуга';
     }
-    // Удаляем старые пустые заглушки (NULL) перед добавлением слота
     for (const r of rooms) {
         await db.from('blocked_dates')
             .delete()
@@ -209,7 +222,7 @@ async function renderDynamicCalendar() {
         span.addEventListener('click', () => {
             if (startInput)
                 startInput.value = dateStr;
-            document.querySelectorAll('.cal-grid span').forEach(s => s.classList.remove('selected-start'));
+            document.querySelectorAll('#dynamic-cal-grid span').forEach(s => s.classList.remove('selected-start'));
             span.classList.add('selected-start');
             loadAdminData();
         });
@@ -247,7 +260,7 @@ async function loadAdminData() {
                     badgeName = 'Косметология';
                 else if (rooms.includes('psychology') || reason.includes('Психология'))
                     badgeName = 'Психология';
-                else if ((rooms.includes('speech') || reason.includes('Специалист по развитию речи и дефектолог') || reason.includes('Коррекция')) && !isCombo)
+                else if ((rooms.includes('speech') || reason.includes('Специалист по развитию речи') || reason.includes('Коррекция')) && !isCombo)
                     badgeName = 'Коррекция речи';
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
