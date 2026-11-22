@@ -496,10 +496,10 @@
         const secretForm = document.getElementById('secret-admin-form');
         const passwordInput = document.getElementById('secret-admin-password');
 
-        // Секретная комбинация: Ctrl + Alt + A (можно изменить под себя)
+        // Секретная комбинация: Ctrl + Alt + A
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.altKey && e.code === 'KeyA') {
-                e.preventDefault(); // Предотвращаем стандартное поведение браузера
+                e.preventDefault();
                 secretModal.style.display = 'flex';
                 passwordInput.focus();
             }
@@ -513,7 +513,7 @@
             });
         }
 
-        // Закрытие при клике на фон вокруг окна
+        // Закрытие при клике на фон
         secretModal.addEventListener('click', (e) => {
             if (e.target === secretModal) {
                 secretModal.style.display = 'none';
@@ -521,16 +521,14 @@
             }
         });
 
-        // Проверка пароля (укажите свой пароль вместо 'maranta2026')
+        // Проверка пароля
         secretForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const enteredPassword = passwordInput.value;
             
-            // Сюда впишите ваш желаемый пароль
+            // Замените 'maranta2026' на ваш собственный пароль
             if (enteredPassword === 'maranta2026') {
-                // Если пароль верный — перенаправляем на файл админ-панели (например, admin.html)
-                // Или можете открыть нужный блок на этой странице
-                window.location.href = 'admin.html'; 
+                window.location.href = 'admin.html'; // Перенаправление на страницу админки
             } else {
                 alert('Неверный пароль!');
                 passwordInput.value = '';
